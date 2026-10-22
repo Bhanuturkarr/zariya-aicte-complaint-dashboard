@@ -19,4 +19,5 @@ public class Complaint {
     protected Complaint() {}
     public Complaint(String caseRef,String institutionId,String institution,String title,String bureau,String category,String priority,String status,String officer,LocalDate dueDate){this.caseRef=caseRef;this.institutionId=institutionId;this.institution=institution;this.title=title;this.bureau=bureau;this.category=category;this.priority=priority;this.status=status;this.officer=officer;this.dueDate=dueDate;}
     public Long getId(){return id;} public String getCaseRef(){return caseRef;} public String getInstitutionId(){return institutionId;} public String getInstitution(){return institution;} public String getTitle(){return title;} public String getBureau(){return bureau;} public String getCategory(){return category;} public String getPriority(){return priority;} public String getStatus(){return status;} public String getOfficer(){return officer;} public LocalDate getDueDate(){return dueDate;}
+    public void setStatus(String status){this.status=status;}
 }

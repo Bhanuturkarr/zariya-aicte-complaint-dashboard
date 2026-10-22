@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController @RequestMapping("/api/complaints")
 public class ComplaintController {
     private final ComplaintRepository repository;
     public ComplaintController(ComplaintRepository repository){this.repository=repository;}
     public record ComplaintInput(@NotBlank String caseRef,@NotBlank String institutionId,@NotBlank String institution,@NotBlank String title,@NotBlank String bureau,@NotBlank String category,String priority,String status,String officer,LocalDate dueDate){}
+    public record StatusInput(@NotBlank String status){}
     @GetMapping public List<Complaint> list(@RequestParam(required=false) String institutionId){return institutionId==null?repository.findAll():repository.findByInstitutionIdIgnoreCase(institutionId);}
     @GetMapping("/{id}") public Complaint get(@PathVariable Long id){return repository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));}
     @PostMapping @ResponseStatus(HttpStatus.CREATED) public Complaint create(@Valid @RequestBody ComplaintInput x){return repository.save(new Complaint(x.caseRef(),x.institutionId(),x.institution(),x.title(),x.bureau(),x.category(),x.priority()==null?"Medium":x.priority(),x.status()==null?"Under review":x.status(),x.officer(),x.dueDate()));}
+    @PatchMapping("/{id}/status") public Complaint updateStatus(@PathVariable Long id,@Valid @RequestBody StatusInput input){Complaint item=get(id);item.setStatus(input.status());return repository.save(item);}
 }

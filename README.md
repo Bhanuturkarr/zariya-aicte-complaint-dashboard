@@ -4,11 +4,11 @@ Zariya is an institution-centric complaint monitoring prototype for SIH 2026 pro
 
 ## Current scope
 
-- Frontend: React + Vite, responsive dashboard, complaint search/filter, CSV export and intake form. New cases are persisted in browser local storage for this standalone demonstration.
-- Backend source: Spring Boot 3 / Java 21 REST starter with PostgreSQL, Flyway migration, Swagger UI and an explainable overlap scoring utility.
+- Frontend: React + Vite, public landing website and responsive dashboard, searchable institution directory, bureau workload, escalations, reports, CSV export, case intake, status updates, overlap review and an activity log. Changes persist in browser storage for a standalone demo.
+- Backend source: Spring Boot 3 / Java 21 API with PostgreSQL, Flyway migration, Swagger UI, complaint create/list/status endpoints, dashboard summary and explainable overlap candidate scoring. Set `VITE_API_URL` to enable API reads and complaint create/status updates; browser storage remains the fallback.
 - Local Compose file provisions PostgreSQL. Start the frontend with demo data even when the API is unavailable.
 
-This is an initial implementation, not a production system. JWT login and server-enforced roles, bureau-level record authorization, persisted overlap review workflow, audit log, full analytics APIs, and frontend-to-backend integration remain to be implemented before operational use. The dashboard summary includes illustrative counts and should be treated as demo content; they are not measured outcomes. The small case list is fictional.
+This is a prototype, not a production system. API authentication and server-enforced roles, bureau-level record authorization, database-persisted overlap review decisions and audit logs, and full analytics endpoints remain to be implemented before operational use. The dashboard overview still contains illustrative aggregate charts and must not be treated as measured outcomes. All sample institutions and complaints are fictional.
 
 ## Run the frontend
 
@@ -19,7 +19,7 @@ pnpm install
 pnpm dev
 ```
 
-Open the local URL printed by Vite (normally http://localhost:5173). Use the **Complaint cases** page to search records, export a CSV, or add a fictional case. Added cases remain in that browser's local storage.
+Open the local URL printed by Vite (normally http://localhost:5173). Use the dashboard to browse institutions and bureau workload, search and filter cases, change a case status, add a fictional complaint, review overlap suggestions, view audit activity, and export CSV reports. Browser-side changes remain in that browser's local storage.
 
 ## Start the database and API
 
