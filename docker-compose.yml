@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: zariya
+      POSTGRES_USER: zariya
+      POSTGRES_PASSWORD: zariya_local
+    ports: ["5432:5432"]
+    volumes: ["zariya-db:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zariya -d zariya"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  zariya-db:
